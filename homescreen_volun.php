@@ -1,0 +1,210 @@
+<?php 
+  session_start();
+  include_once "php/config.php";
+  if(!isset($_SESSION['unique_id'])){
+    header("location: login.php");
+  }
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Achi Pashe- Homescreen</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
+</style>
+</head>
+<body class="w3-theme-l5">
+
+<?php 
+  $sql = mysqli_query($conn, "SELECT * FROM users WHERE unique_id = {$_SESSION['unique_id']}");
+  if(mysqli_num_rows($sql) > 0){
+    $row = mysqli_fetch_assoc($sql);
+  }
+  ?>
+
+<!-- Navbar -->
+<div class="w3-top">
+ <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
+  <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
+  <a href="#"  class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><i class="fa fa-home w3-margin-right"></i>Logo</a>
+  <a href="aboutus_afl.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="About us"><i class="fa fa-globe"></i></a>
+  
+  <a href="profile.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Profile"><i class="fa fa-user"></i></a>
+  
+  <a href="users.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Messages "><i class="fa fa-envelope"></i></a>
+
+  <a href="report.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Report "><i class="fa fa-edit"></i></a>
+
+  <a href="php/logout.php?logout_id=<?php echo $row['unique_id']; ?>" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="logout"><i class="fa fa-sign-out"></i></a>
+
+  <a href="profile.php" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" title="My Account">
+    <img src="php/images/<?php echo $row['img']; ?>" class="w3-circle" style="height:23px;width:23px" alt="Avatar"> 
+  </a>
+ </div>
+</div>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>admin page</title>
+
+   <!-- custom css file link  -->
+   <link rel="stylesheet" href="css1/style.css">
+
+</head>
+<body>
+<div class="container">
+
+   <div class="content">
+      <div id="example1">
+      <h3>Hi <span>Volunteer,</span></h3>
+      <h1>Welcome to the dashboard!</h1>  
+      <p>Scroll down to see what we got for you</p>
+      <br>
+      <br>
+      <br>
+      <h2> Wanna go and check newsfeed? <h2>
+      <a href="homescreen.html" <button type="button" class="btn btn-primary btn-lg btn-block"> Go Newsfeed </button> </a>
+      </div>
+   </div>
+</div>
+
+
+
+<body>
+  <center>
+  <h1><b>Data of all Users </b> </h1> 
+  </center>
+</body>
+
+
+
+
+
+<!-- Page Container -->
+<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
+  <div class="w3-row">
+    <div class="w3-col m3">
+    </div>
+    <title>Table with database</title>
+   <style>
+      table {
+      border-collapse: collapse;
+      width: 100%;
+      color: #588c7e;
+      font-family: monospace;
+      font-size: 25px;
+      text-align: left;
+      }
+      th {
+      background-color: #588c7e;
+      color: white;
+      }
+      tr:nth-child(even) {background-color: #f2f2f2}
+   </style>
+</head>
+<body>
+<table>
+   <tr>
+      <th>Id</th>
+      <th>Activity Status</th>
+   </tr>
+
+   <?php 
+    $conn = mysqli_connect("localhost", "root", "", "chatapp");
+    $sql = mysqli_query($conn, "SELECT * FROM users");
+    if(mysqli_num_rows($sql) > 0){
+      while ($row = mysqli_fetch_assoc($sql)){
+        if($row['user_type'] == 'user'){
+          echo "<tr><td>" . $row["unique_id"]. "</td><td>" . $row["status"]. "</td></tr>";
+        }
+      }
+      echo "</table>";
+      
+    }
+   ?>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+
+<body>
+  <center>
+  <h1><b>Data of all Specialists </b> </h1> 
+  </center>
+</body>
+
+
+
+
+
+<!-- Page Container -->
+<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
+  <div class="w3-row">
+    <div class="w3-col m3">
+    </div>
+    <title>Table with database</title>
+   <style>
+      table {
+      border-collapse: collapse;
+      width: 100%;
+      color: #588c7e;
+      font-family: monospace;
+      font-size: 25px;
+      text-align: left;
+      }
+      th {
+      background-color: #588c7e;
+      color: white;
+      }
+      tr:nth-child(even) {background-color: #f2f2f2}
+   </style>
+</head>
+<body>
+<table>
+   <tr>
+      <th>Id</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>User Type</th>
+      <th>Activity Status</th>
+   </tr>
+
+   <?php 
+    $conn = mysqli_connect("localhost", "root", "", "chatapp");
+    $sql = mysqli_query($conn, "SELECT * FROM users");
+    if(mysqli_num_rows($sql) > 0){
+      while ($row = mysqli_fetch_assoc($sql)){
+        if($row['user_type'] == 'specialist'){
+          echo "<tr><td>" . $row["unique_id"]. "</td><td>" . $row["fname"] . "</td><td>" . $row["lname"] . "</td><td>" . $row["email"] . "</td><td>" . $row["user_type"] . "</td><td>". $row["status"]. "</td></tr>";
+        }
+      }
+      echo "</table>";
+      
+    }
+   ?>
+    </div>
+  </div>
+</div>
+<br>
+
+
+ 
+
+</body>
+</html> 
